@@ -1,6 +1,8 @@
 package ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.WebElement;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -102,9 +104,9 @@ public MainPageObject(AppiumDriver driver) {this.driver = driver; }
             int y_end = (int) (size.height * 0.2);
 
             action
-                    .press(x, y_start)
-                    .waitAction(Duration.ofMillis(timeOfSwipe))
-                    .moveTo(x, y_end)
+                    .press(PointOption.point(x, y_start))
+                    .moveTo(PointOption.point(x, y_end))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(timeOfSwipe)))
                     .release()
                     .perform();
         }
@@ -141,16 +143,28 @@ public MainPageObject(AppiumDriver driver) {this.driver = driver; }
 
             TouchAction action = new TouchAction(driver);
             action
-                    .press(right_x, middle_y)
-                    .waitAction(Duration.ofMillis(300))
-                    .moveTo(left_x,middle_y)
+
+                    .press(PointOption.point(right_x, middle_y))
+                    .moveTo(PointOption.point(left_x,middle_y))
+                    .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
                     .release()
                     .perform();
+
         }
         public int getAmountOfElements(By by) {
             List elements = driver.findElements(by);
             return elements.size();
         }
+    public void assertElementPresent(By by, String error_message){
+        int amount_of_elements = getAmountOfElements(by);
+        if (amount_of_elements < 1 ) {
+            String default_message = "An element '" + by.toString() + "' supposed to be present";
+            throw new AssertionError(default_message + " " + error_message);
+        } else if (amount_of_elements > 1 ) {
+            String default_message = "Not more than one element '" + by.toString() + "' supposed to be present";
+            throw new AssertionError(default_message + " " + error_message);
+        }
+    }
 
         public void assertElementNotPresent(By by, String error_message){
             int amount_of_elements = getAmountOfElements(by);

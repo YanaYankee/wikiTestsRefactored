@@ -1,14 +1,13 @@
+import lib.CoreTestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
-import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 import ui.*;
 
 import static org.openqa.selenium.By.id;
 
-public class Tests extends CoreTestCase{
+public class Tests extends CoreTestCase {
     private MainPageObject MainPageObject;
 
     protected void setUp() throws Exception {

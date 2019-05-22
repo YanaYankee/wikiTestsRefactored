@@ -1,5 +1,7 @@
+package lib;
+
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import junit.framework.TestCase;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -7,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 import java.time.Duration;
 
-public class CoreTestCase extends TestCase {
+public class iOSTestCase extends TestCase {
     protected AppiumDriver driver;
     private static String AppiumURL = "http://127.0.0.1:4723/wd/hub";
 
@@ -18,16 +20,13 @@ public class CoreTestCase extends TestCase {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //    capabilities.setCapability("automationName", "uiautomator2");
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("deviceName", "AndroidTestDevice");
-        capabilities.setCapability("platformVersion", "8");
-        // capabilities.setCapability("automationName", "Appium"); Original error: Could not find a driver for automationName 'Appium' and platformName 'Android'. Please check your desired capabilities.
-        capabilities.setCapability("appPackage", "org.wikipedia");
-        capabilities.setCapability("appActivity", ".main.MainActivity");
-        capabilities.setCapability("app", "/Users/yaninapavlyk/Tests/wikiTestsRefactored/apks/org.wikipedia.apk");
+        capabilities.setCapability("platformName", "iOs");
+        capabilities.setCapability("deviceName", "iPhone 8 Plus");
+        capabilities.setCapability("platformVersion", "12.2");
+        capabilities.setCapability("app", "/Users/yaninapavlyk/WIKI_NEW/Wikipedia.app");
 
 
-        driver = new AndroidDriver(new URL(AppiumURL), capabilities);
+        driver = new IOSDriver(new URL(AppiumURL), capabilities);
 // ****************  Set orientation before each test ***********************
 
         this.rotateScreenPortrait();
